@@ -1,88 +1,72 @@
 /**
- * Object creation
- * 1. Literals
- * 2. Factory function using Object.create()
- * 3. Constructor functions using new
- * 4. Classes with new
+ *  Object creation
+ *      1. Using literals
+ *      2. Using Object.create
+ *      3. Using constructor functions with new
+ *      4. Using classes with new
  *
+ *
+ *  Things to check for
+ *      1. __proto__ for new object
  *
  */
 
-describe('Creating objects using literals', () => {
-  var literal = {
-    name: 'Julia',
-    age: 23,
-  };
-  it('properties and methods added to literal should be attached to it', () => {
-    expect(Object.prototype.hasOwnProperty.call(literal, 'name')).toBeTruthy();
-    expect(Object.prototype.hasOwnProperty.call(literal, 'age')).toBeTruthy();
+import { Employee, store, User, user } from '.';
+
+describe('Testing object creation using literals', () => {
+  it('should have properties on itself ', () => {
+    expect(Object.prototype.hasOwnProperty.call(user, 'name')).toBeTruthy();
   });
-  it('should have __proto__ pointing to Object.prototype', () => {
-    expect(literal.__proto__).toEqual(Object.prototype);
+  it('should have methods on itself ', () => {
+    expect(Object.prototype.hasOwnProperty.call(user, 'getName')).toBeTruthy();
+  });
+  it('should have __proto__ pointed to Object.prototype ', () => {
+    expect(user.__proto__ === Object.prototype).toBeTruthy();
   });
 });
 
-describe('Creating objects with factory functions using Object.create()', () => {
-  const functionStore = {
-    getNum: () => 2,
-  };
-  var withNull = Object.create(null);
-  var withObj = Object.create(functionStore);
-  it('should return an empty object', () => {
-    expect(withNull).toEqual({});
-    expect(withObj).toEqual({});
+describe('Testing object creation using Object.create', () => {
+  const user = Object.create(store);
+  user.name = 'John';
+  it('should have properties on itself ', () => {
+    expect(Object.prototype.hasOwnProperty.call(user, 'name')).toBeTruthy();
   });
-  it('should return an object whose __proto__ is set to undefined when called with null', () => {
-    expect(withNull.__proto__).toBeUndefined();
+  it('should have methods on object pointed by __proto__ ', () => {
+    expect(
+      Object.prototype.hasOwnProperty.call(user.__proto__, 'getName')
+    ).toBeTruthy();
   });
-  it('should return an object which throws TypeError when trying to access Object.prototype methods when called with null', () => {
-    try {
-      withNull.toString(); // calling Object.prototype methods on withNull throws TypeError
-    } catch (error) {
-      expect(error instanceof TypeError).toBeTruthy();
-    }
-  });
-  it('should return an object whose __proto__ to an object with which Object.create() is called', () => {
-    expect(withObj.__proto__).toEqual(functionStore);
-  });
-  it('returns an object which has access to methods set on the object argument which is passed to Object.create()', () => {
-    expect(withObj.getNum()).toEqual(2);
+  it('should have __proto__ pointed to the same object passed in to Object.create() ', () => {
+    expect(user.__proto__ === store).toBeTruthy();
   });
 });
 
-describe('Creating objects with constructor functions using new', () => {
-  function User(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-  User.prototype.getName = function () {
-    return this.name;
-  };
+describe('Testing object creation using constructor function', () => {
   const user = new User('John', 30);
-  it('should return an object whose __proto__ is set to the prototype of constructor function', () => {
-    expect(user.__proto__).toEqual(User.prototype);
+  it('should have properties on itself ', () => {
+    expect(Object.prototype.hasOwnProperty.call(user, 'name')).toBeTruthy();
   });
-  it('should return an object which has access to methods added to the prototype of the constructor function', () => {
-    expect(user.getName()).toEqual('John');
+  it('should have methods on object pointed by __proto__ ', () => {
+    expect(
+      Object.prototype.hasOwnProperty.call(user.__proto__, 'getName')
+    ).toBeTruthy();
+  });
+  it('should have __proto__ pointed to the prototype object of constructor function ', () => {
+    expect(user.__proto__ === User.prototype).toBeTruthy();
   });
 });
 
-class User {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-  getName() {
-    return this.name;
-  }
-}
-
-describe('Creating objects with classes using new', () => {
-  var user = new User('John', 10);
-  it('should return an object whose __proto__ is set to prototype of User class', () => {
-    expect(user.__proto__).toEqual(User.prototype);
+describe('Testing object creation using class', () => {
+  const emp = new Employee('John', 30);
+  it('should have properties on itself ', () => {
+    expect(Object.prototype.hasOwnProperty.call(emp, 'name')).toBeTruthy();
   });
-  it('should return an object which has access to methods', () => {
-    expect(user.getName()).toEqual('John');
+  it('should have methods on object pointed by __proto__ ', () => {
+    expect(
+      Object.prototype.hasOwnProperty.call(emp.__proto__, 'getName')
+    ).toBeTruthy();
+  });
+  it('should have __proto__ pointed to the prototype object of constructor function ', () => {
+    expect(emp.__proto__ === Employee.prototype).toBeTruthy();
   });
 });
