@@ -37,6 +37,15 @@
  *
  * extends and super
  * Object static methods
+ *      Object.create()
+ *      Object.assign
+ *      Object.getPrototypeOf
+ *      Object.setPrototypeOf
+ * Object.prototype methods
+ *      hasOwnProperty
+ * instanceof operator
  * Gotchas and questions
+ *      1. why is it important to reset the constructor of the prototype after linking it to another class?
+ *      2. Object.create() vs new
  *
  */
