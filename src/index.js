@@ -46,6 +46,10 @@
  * instanceof operator
  * Gotchas and questions
  *      1. why is it important to reset the constructor of the prototype after linking it to another class?
- *      2. Object.create() vs new
+ *      2. What is the difference in creating prototyp chain using Object.create() vs new?? Very important
+ *              child.prototype = Object.create(parent.prototype)
+ *              child.prototype = new Parent();
+ *      3. What is the difference between Object.prototype.isPrototypeOf() and instanceof operator
+ *      4. How isPrototypeOf and instanceof can be used together?
  *
 k */
