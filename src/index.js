@@ -37,13 +37,8 @@
  *
  * extends and super
  * Object static methods
- *      Object.create()
- *      Object.assign
- *      Object.getPrototypeOf
- *      Object.setPrototypeOf
  * Object.prototype methods
- *      hasOwnProperty
- * instanceof operator
+ * Operators and Loop construct
  * Gotchas and questions
  *      1. why is it important to reset the constructor of the prototype after linking it to another class?
  *      2. What is the difference in creating prototyp chain using Object.create() vs new?? Very important
@@ -51,5 +46,8 @@
  *              child.prototype = new Parent();
  *      3. What is the difference between Object.prototype.isPrototypeOf() and instanceof operator
  *      4. How isPrototypeOf and instanceof can be used together?
+ *      5. Different methods to check if property is available directly on object
+ *      6. Different methods to check if property is available directly on object + up the prototype chain
+ *      7. Different methods to check if an object is a descendent of a constructor function
  *
 k */
